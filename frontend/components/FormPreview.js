@@ -30,13 +30,18 @@ export default function FormPreview({ fields }) {
 
     setFormData({ ...formData, [fieldId]: value });
     
-    // Clear error when user starts typing
+    // Clear any existing errors (keep the functionality but errors won't show)
     if (errors[fieldId]) {
       setErrors({ ...errors, [fieldId]: null });
     }
   };
 
   const validateForm = () => {
+    // For preview mode, we skip validation to allow easy testing
+    // All fields can be submitted regardless of their state
+    return true;
+    
+    /* Original validation logic preserved but commented out:
     const newErrors = {};
     
     fields.forEach(field => {
@@ -79,17 +84,16 @@ export default function FormPreview({ fields }) {
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+    */
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage(null);
 
-    if (!validateForm()) {
-      setMessage('❌ Please fix the errors above');
-      return;
-    }
-
+    // For preview mode, we allow submission without validation
+    // This makes testing easier and more user-friendly
+    
     try {
       const res = await axios.post(`http://localhost:5000/forms/${id}`, {
         formData,
@@ -97,14 +101,14 @@ export default function FormPreview({ fields }) {
       });
 
       if (res.status === 200) {
-        setMessage('✅ Form submitted successfully!');
+        setMessage('✅ Preview form submitted successfully! This demonstrates how the form works.');
         setFormData({});
       } else {
         setMessage('❌ Submission failed. Try again.');
       }
     } catch (err) {
       console.error(err);
-      setMessage('❌ Something went wrong.');
+      setMessage('❌ Something went wrong. (This is normal in preview mode if no backend is connected)');
     }
   };
 
@@ -261,12 +265,13 @@ export default function FormPreview({ fields }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" noValidate>
       {fields.map((field) => (
         <div key={field.id} className="space-y-3">
           <label className="block font-semibold text-purple-900">
             {field.label}
             {field.required && <span className="text-purple-600 ml-1">*</span>}
+            <span className="text-purple-500 text-sm font-normal ml-2">(optional in preview)</span>
           </label>
           {renderField(field)}
         </div>
@@ -287,7 +292,7 @@ export default function FormPreview({ fields }) {
           type="submit"
           className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-4 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
         >
-          Submit Form
+          Test Submit Form
         </button>
       )}
     </form>

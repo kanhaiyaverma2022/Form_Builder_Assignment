@@ -126,14 +126,25 @@ export default function FormPage() {
         <div className="bg-white rounded-xl shadow-lg border border-purple-100 p-6 sm:p-8">
           <div className="mb-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-purple-900">Your Form</h2>
+              <h2 className="text-xl font-bold text-purple-900">Form Preview & Testing</h2>
               <div className="text-sm text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
                 {fields.length} field{fields.length !== 1 ? 's' : ''}
               </div>
             </div>
-            <p className="text-purple-600 text-sm">
-              This is a preview of your form. All data entered here will be submitted for testing purposes.
-            </p>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <h3 className="font-medium text-blue-800 mb-1">Preview Mode</h3>
+                  <p className="text-blue-700 text-sm">
+                    This is a preview of your form. You can interact with all fields and test the submit functionality. 
+                    No validation is enforced - feel free to experiment with any data!
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
           
           <FormPreview fields={fields} />
