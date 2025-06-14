@@ -24,7 +24,7 @@ const getDefaultFieldConfig = (type) => {
       return {
         ...baseConfig,
         inputType: 'text', // text, email, number, password, tel, url
-        placeholder: 'Enter text...'
+        placeholder: 'Enter text here...'
       };
     
     case 'textarea':
@@ -114,6 +114,12 @@ function reducer(state, action) {
           ...state.savedForms,
           [action.payload.id]: action.payload.fields
         }
+      };
+
+    case 'CLEAR_FORM':
+      return {
+        ...state,
+        fields: []
       };
 
     default:

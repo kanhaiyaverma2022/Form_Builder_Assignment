@@ -37,19 +37,19 @@ export default function SortableFieldItem({ field }) {
   const getFieldIcon = () => {
     switch (field.type) {
       case 'text':
-        if (field.inputType === 'email') return <Mail className="w-4 h-4 text-blue-500" />;
-        if (field.inputType === 'number') return <Hash className="w-4 h-4 text-green-500" />;
-        return <Type className="w-4 h-4 text-gray-500" />;
+        if (field.inputType === 'email') return <Mail className="w-4 h-4 text-purple-600" />;
+        if (field.inputType === 'number') return <Hash className="w-4 h-4 text-purple-600" />;
+        return <Type className="w-4 h-4 text-purple-600" />;
       case 'textarea':
-        return <List className="w-4 h-4 text-purple-500" />;
+        return <List className="w-4 h-4 text-purple-600" />;
       case 'select':
-        return <List className="w-4 h-4 text-orange-500" />;
+        return <List className="w-4 h-4 text-purple-600" />;
       case 'checkbox':
-        return <CheckSquare className="w-4 h-4 text-green-500" />;
+        return <CheckSquare className="w-4 h-4 text-purple-600" />;
       case 'radio':
-        return <Circle className="w-4 h-4 text-blue-500" />;
+        return <Circle className="w-4 h-4 text-purple-600" />;
       default:
-        return <Type className="w-4 h-4 text-gray-500" />;
+        return <Type className="w-4 h-4 text-purple-600" />;
     }
   };
 
@@ -80,33 +80,33 @@ export default function SortableFieldItem({ field }) {
     <div
       ref={setNodeRef}
       style={style}
-      className="p-4 border rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-200 group border-gray-200"
+      className="p-4 border rounded-lg bg-gradient-to-r from-white to-purple-50 shadow-sm hover:shadow-md transition-all duration-200 group border-purple-200 hover:border-purple-300"
     >
       <div className="flex items-center justify-between">
         {/* Drag Handle */}
         <div
           {...attributes}
           {...listeners}
-          className="cursor-grab active:cursor-grabbing p-2 rounded hover:bg-gray-100 transition-colors -ml-2"
+          className="cursor-grab active:cursor-grabbing p-2 rounded hover:bg-purple-100 transition-colors -ml-2 touch-manipulation"
         >
-          <GripVertical className="text-gray-400 w-4 h-4" />
+          <GripVertical className="text-purple-400 w-5 h-5" />
         </div>
 
         {/* Field Info */}
         <div className="flex-1 ml-3">
           <div className="flex items-center space-x-2 mb-1">
             {getFieldIcon()}
-            <h3 className="font-medium text-gray-900">{field.label}</h3>
+            <h3 className="font-semibold text-purple-900">{field.label}</h3>
             {field.required && (
-              <span className="text-red-500 text-sm font-medium">*</span>
+              <span className="text-purple-600 text-sm font-medium">*</span>
             )}
           </div>
           
-          <p className="text-xs text-gray-500">{getFieldSubtitle()}</p>
+          <p className="text-xs text-purple-600">{getFieldSubtitle()}</p>
           
           {/* Show placeholder if exists */}
           {field.placeholder && (
-            <p className="text-xs text-gray-400 mt-1 italic">
+            <p className="text-xs text-purple-500 mt-1 italic">
               "{field.placeholder}"
             </p>
           )}
@@ -118,13 +118,13 @@ export default function SortableFieldItem({ field }) {
                 {field.options.slice(0, 3).map((option, index) => (
                   <span 
                     key={option.id} 
-                    className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded"
+                    className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded"
                   >
                     {option.label}
                   </span>
                 ))}
                 {field.options.length > 3 && (
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-purple-500">
                     +{field.options.length - 3} more
                   </span>
                 )}
@@ -137,13 +137,13 @@ export default function SortableFieldItem({ field }) {
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
             onClick={() => setIsEditing(true)}
-            className="text-blue-600 hover:bg-blue-50 text-sm px-3 py-1.5 rounded transition-colors"
+            className="text-purple-600 hover:bg-purple-50 text-sm px-3 py-2 rounded transition-colors font-medium touch-manipulation"
           >
             Edit
           </button>
           <button
             onClick={handleDelete}
-            className="text-red-600 hover:bg-red-50 text-sm px-3 py-1.5 rounded transition-colors"
+            className="text-red-600 hover:bg-red-50 text-sm px-3 py-2 rounded transition-colors font-medium touch-manipulation"
           >
             Delete
           </button>
