@@ -9,15 +9,68 @@ const initialState = {
   savedForms: {} 
 };
 
+// Default field configurations
+const getDefaultFieldConfig = (type) => {
+  const baseConfig = {
+    id: nanoid(),
+    type,
+    label: `${type} field`,
+    required: false,
+    placeholder: ''
+  };
+
+  switch (type) {
+    case 'text':
+      return {
+        ...baseConfig,
+        inputType: 'text', // text, email, number, password, tel, url
+        placeholder: 'Enter text...'
+      };
+    
+    case 'textarea':
+      return {
+        ...baseConfig,
+        placeholder: 'Enter your message...',
+        rows: 3
+      };
+    
+    case 'select':
+      return {
+        ...baseConfig,
+        placeholder: 'Choose an option...',
+        options: [
+          { id: nanoid(), label: 'Option 1', value: 'option1' },
+          { id: nanoid(), label: 'Option 2', value: 'option2' }
+        ]
+      };
+    
+    case 'radio':
+      return {
+        ...baseConfig,
+        options: [
+          { id: nanoid(), label: 'Option A', value: 'optionA' },
+          { id: nanoid(), label: 'Option B', value: 'optionB' }
+        ]
+      };
+    
+    case 'checkbox':
+      return {
+        ...baseConfig,
+        checkboxType: 'single', // single or multiple
+        options: [
+          { id: nanoid(), label: 'Checkbox Option', value: 'checkbox1' }
+        ]
+      };
+    
+    default:
+      return baseConfig;
+  }
+};
+
 function reducer(state, action) {
   switch (action.type) {
     case 'ADD_FIELD':
-      const newField = {
-        id: nanoid(),
-        type: action.payload,
-        label: `${action.payload} field`,
-        required: false
-      };
+      const newField = getDefaultFieldConfig(action.payload);
       return { ...state, fields: [...state.fields, newField] };
 
     case 'UPDATE_FIELD':
@@ -25,6 +78,16 @@ function reducer(state, action) {
         ...state,
         fields: state.fields.map((field) =>
           field.id === action.payload.id ? { ...field, ...action.payload } : field
+        )
+      };
+
+    case 'UPDATE_FIELD_OPTIONS':
+      return {
+        ...state,
+        fields: state.fields.map((field) =>
+          field.id === action.payload.fieldId 
+            ? { ...field, options: action.payload.options }
+            : field
         )
       };
 
