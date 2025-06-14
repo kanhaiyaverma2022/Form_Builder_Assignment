@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, DragOverlay, closestCenter } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useFormBuilder } from '@/context/FormBuilderContext';
 import FieldPalette from '@/components/FieldPalette';
 import Canvas from '@/components/Canvas';
@@ -9,13 +10,35 @@ import { nanoid } from 'nanoid';
 export default function DesignerPage() {
   const { state, dispatch } = useFormBuilder();
   const router = useRouter();
+  const [activeId, setActiveId] = useState(null);
+
+  const handleDragStart = (event) => {
+    setActiveId(event.active.id);
+  };
 
   const handleDragEnd = (event) => {
     const { over, active } = event;
-    if (over?.id === 'canvas') {
-      const type = active?.data?.current?.type;
-      if (type) {
-        dispatch({ type: 'ADD_FIELD', payload: type });
+    setActiveId(null);
+
+    if (!over) return;
+
+    // Check if it's a new field being dropped from palette to canvas
+    if (over.id === 'canvas' && active.data.current?.type && !active.data.current?.field) {
+      const type = active.data.current.type;
+      dispatch({ type: 'ADD_FIELD', payload: type });
+      return;
+    }
+
+    // Check if it's reordering existing fields within canvas
+    if (active.data.current?.type === 'field-item' && over.data.current?.type === 'field-item') {
+      if (active.id !== over.id) {
+        dispatch({
+          type: 'REORDER_FIELDS',
+          payload: {
+            activeId: active.id,
+            overId: over.id
+          }
+        });
       }
     }
   };
@@ -35,7 +58,11 @@ export default function DesignerPage() {
   };
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext 
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      collisionDetection={closestCenter}
+    >
       <div className="min-h-screen p-6 bg-gray-100">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-bold">Form Builder</h1>
@@ -59,6 +86,15 @@ export default function DesignerPage() {
           </div>
         </div>
       </div>
+
+      {/* Drag Overlay for visual feedback */}
+      <DragOverlay>
+        {activeId ? (
+          <div className="p-3 border rounded bg-gray-100 shadow-lg opacity-80">
+            <p className="font-medium">Dragging...</p>
+          </div>
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 }

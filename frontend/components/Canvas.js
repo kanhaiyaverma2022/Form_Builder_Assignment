@@ -1,6 +1,7 @@
 import { useDroppable } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useFormBuilder } from '@/context/FormBuilderContext';
-import FieldItem from './FieldItem';
+import SortableFieldItem from './SortableFieldItem';
 
 export default function Canvas() {
   const { isOver, setNodeRef } = useDroppable({ id: 'canvas' });
@@ -16,14 +17,14 @@ export default function Canvas() {
       {state.fields.length === 0 ? (
         <p className="text-gray-400">Drag fields here</p>
       ) : (
-        <div className="flex flex-col gap-3">
-         {state.fields.map((field) => (
-  <FieldItem key={field.id} field={field} />
-))}
-
-        </div>
+        <SortableContext items={state.fields.map(f => f.id)} strategy={verticalListSortingStrategy}>
+          <div className="flex flex-col gap-3">
+            {state.fields.map((field) => (
+              <SortableFieldItem key={field.id} field={field} />
+            ))}
+          </div>
+        </SortableContext>
       )}
     </div>
   );
 }
-

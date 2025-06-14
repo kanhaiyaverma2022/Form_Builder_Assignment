@@ -1,10 +1,11 @@
 import { createContext, useContext, useReducer } from 'react';
 import { nanoid } from 'nanoid';
+import { arrayMove } from '@dnd-kit/sortable';
 
 const FormBuilderContext = createContext();
 
 const initialState = {
-   fields: [],
+  fields: [],
   savedForms: {} 
 };
 
@@ -32,16 +33,25 @@ function reducer(state, action) {
         ...state,
         fields: state.fields.filter((f) => f.id !== action.payload)
       };
+
+    case 'REORDER_FIELDS':
+      const { activeId, overId } = action.payload;
+      const oldIndex = state.fields.findIndex(field => field.id === activeId);
+      const newIndex = state.fields.findIndex(field => field.id === overId);
+      
+      return {
+        ...state,
+        fields: arrayMove(state.fields, oldIndex, newIndex)
+      };
+
     case 'SAVE_FORM':
-    return {
+      return {
         ...state,
         savedForms: {
-        ...state.savedForms,
-        [action.payload.id]: action.payload.fields
+          ...state.savedForms,
+          [action.payload.id]: action.payload.fields
         }
-    };
-    
-  
+      };
 
     default:
       return state;
@@ -59,4 +69,3 @@ export function FormBuilderProvider({ children }) {
 }
 
 export const useFormBuilder = () => useContext(FormBuilderContext);
-
