@@ -1,0 +1,89 @@
+{
+   "formId": "user_reg_12345",
+    "data": {
+      "fullName": "kanhaiya verma",
+      "email": "kanhaiyaverma.developer@gmail.com",
+      "phone": "7270813318",
+      "age": "24",
+      "gender": "male",
+      "interests": ["technology", "reading books"],
+      "newsletter": true,
+      "bio": "Software developer with 2 years of experience."
+    },
+    "fields": [
+      {
+        "id": "fullName",
+        "type": "text",
+        "label": "Full Name",
+        "required": true,
+        "placeholder": "Enter your full name",
+        "inputType": "text"
+      },
+      {
+        "id": "email",
+        "type": "text",
+        "label": "Email Address",
+        "required": true,
+        "placeholder": "your.email@example.com",
+        "inputType": "email"
+      },
+      {
+        "id": "phone",
+        "type": "text",
+        "label": "Phone Number",
+        "required": false,
+        "placeholder": "+1-555-0123",
+        "inputType": "tel"
+      },
+      {
+        "id": "age",
+        "type": "text",
+        "label": "Age",
+        "required": true,
+        "placeholder": "Enter your age",
+        "inputType": "number"
+      },
+      {
+        "id": "gender",
+        "type": "radio",
+        "label": "Gender",
+        "required": true,
+        "options": [
+          { "id": "male", "label": "Male", "value": "male" },
+          { "id": "female", "label": "Female", "value": "female" },
+          { "id": "other", "label": "Other", "value": "other" }
+        ]
+      },
+      {
+        "id": "interests",
+        "type": "checkbox",
+        "label": "Interests",
+        "required": false,
+        "checkboxType": "multiple",
+        "options": [
+          { "id": "tech", "label": "Technology", "value": "technology" },
+          { "id": "sports", "label": "Sports", "value": "sports" },
+          { "id": "music", "label": "Music", "value": "music" },
+          { "id": "travel", "label": "Travel", "value": "travel" }
+        ]
+      },
+      {
+        "id": "newsletter",
+        "type": "checkbox",
+        "label": "Subscribe to Newsletter",
+        "required": false,
+        "checkboxType": "single",
+        "placeholder": "Yes, I want to receive updates"
+      },
+      {
+        "id": "bio",
+        "type": "textarea",
+        "label": "Bio",
+        "required": false,
+        "placeholder": "Tell us about yourself...",
+        "rows": 4
+      }
+    ],
+    "submittedAt": "2025-06-14T20:38:17.808Z"
+  }
+

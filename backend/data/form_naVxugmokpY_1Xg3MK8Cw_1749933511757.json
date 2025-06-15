@@ -1,0 +1,130 @@
+
+
+{
+  "formId": "flight_book_67890",
+    "data": {
+      "passengerName": "kanhaiya verma",
+      "email": "kanhaiya@gmail.com",
+      "from": "delhi",
+      "to": "mumbai",
+      "departureDate": "2025-07-15",
+      "returnDate": "2025-07-25",
+      "tripType": "round-trip",
+      "passengers": "2",
+      "class": "economy",
+      "mealPreference": ["vegetarian"],
+      "insurance": true
+    },
+    "fields": [
+      {
+        "id": "passengerName",
+        "type": "text",
+        "label": "Passenger Name",
+        "required": true,
+        "placeholder": "Enter full name as on passport",
+        "inputType": "text"
+      },
+      {
+        "id": "email",
+        "type": "text",
+        "label": "Email",
+        "required": true,
+        "placeholder": "your.email@example.com",
+        "inputType": "email"
+      },
+      {
+        "id": "from",
+        "type": "select",
+        "label": "From",
+        "required": true,
+        "placeholder": "Select departure city",
+        "options": [
+          { "id": "ny", "label": "New York", "value": "new-york" },
+          { "id": "la", "label": "Los Angeles", "value": "los-angeles" },
+          { "id": "chi", "label": "Chicago", "value": "chicago" },
+          { "id": "mia", "label": "Miami", "value": "miami" }
+        ]
+      },
+      {
+        "id": "to",
+        "type": "select",
+        "label": "To",
+        "required": true,
+        "placeholder": "Select destination city",
+        "options": [
+          { "id": "lon", "label": "London", "value": "london" },
+          { "id": "par", "label": "Paris", "value": "paris" },
+          { "id": "tok", "label": "Tokyo", "value": "tokyo" },
+          { "id": "syd", "label": "Sydney", "value": "sydney" }
+        ]
+      },
+      {
+        "id": "departureDate",
+        "type": "text",
+        "label": "Departure Date",
+        "required": true,
+        "placeholder": "YYYY-MM-DD",
+        "inputType": "text"
+      },
+      {
+        "id": "returnDate",
+        "type": "text",
+        "label": "Return Date",
+        "required": false,
+        "placeholder": "YYYY-MM-DD (for round trip)",
+        "inputType": "text"
+      },
+      {
+        "id": "tripType",
+        "type": "radio",
+        "label": "Trip Type",
+        "required": true,
+        "options": [
+          { "id": "oneway", "label": "One Way", "value": "one-way" },
+          { "id": "roundtrip", "label": "Round Trip", "value": "round-trip" }
+        ]
+      },
+      {
+        "id": "passengers",
+        "type": "text",
+        "label": "Number of Passengers",
+        "required": true,
+        "placeholder": "1",
+        "inputType": "number"
+      },
+      {
+        "id": "class",
+        "type": "select",
+        "label": "Class",
+        "required": true,
+        "placeholder": "Select class",
+        "options": [
+          { "id": "eco", "label": "Economy", "value": "economy" },
+          { "id": "bus", "label": "Business", "value": "business" },
+          { "id": "first", "label": "First Class", "value": "first-class" }
+        ]
+      },
+      {
+        "id": "mealPreference",
+        "type": "checkbox",
+        "label": "Meal Preferences",
+        "required": false,
+        "checkboxType": "multiple",
+        "options": [
+          { "id": "veg", "label": "Vegetarian", "value": "vegetarian" },
+          { "id": "vegan", "label": "Vegan", "value": "vegan" },
+          { "id": "kosher", "label": "Kosher", "value": "kosher" },
+          { "id": "halal", "label": "Halal", "value": "halal" }
+        ]
+      },
+      {
+        "id": "insurance",
+        "type": "checkbox",
+        "label": "Travel Insurance",
+        "required": false,
+        "checkboxType": "single",
+        "placeholder": "Add travel insurance for $25"
+      }
+    ],
+    "submittedAt": "2025-06-14T20:45:30.123Z"
+}
